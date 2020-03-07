@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         gameRepository = GameRepository(this)
 
+        updateStatistics()
+
         ivRock.setOnClickListener { playOneRound(0) }
         ivPaper.setOnClickListener { playOneRound(1) }
         ivScissors.setOnClickListener { playOneRound(2) }
@@ -108,6 +110,8 @@ class MainActivity : AppCompatActivity() {
             withContext(Dispatchers.IO) {
                 gameRepository.addGame(game)
             }
+
+            updateStatistics()
         }
 
     }
@@ -115,6 +119,18 @@ class MainActivity : AppCompatActivity() {
     private fun startHistoryActivity() {
         val intent = Intent(this, GameHistoryActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun updateStatistics() {
+        mainScope.launch {
+            val stats = withContext(Dispatchers.IO) {
+                return@withContext arrayOf(gameRepository.getLossesCount(),
+                    gameRepository.getDrawsCount(), gameRepository.getWinsCount())
+        }
+            this@MainActivity.tvStatistics.text =
+                """Losses: ${stats[0]} | Draws: ${stats[1]} | Wins: ${stats[2]}"""
+
+        }
     }
 
 }
