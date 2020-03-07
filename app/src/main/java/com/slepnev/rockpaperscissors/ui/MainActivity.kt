@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.slepnev.rockpaperscissors.R
+import com.slepnev.rockpaperscissors.model.Game
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        ivRock.setOnClickListener { playOneRound(0) }
+        ivPaper.setOnClickListener { playOneRound(1) }
+        ivScissors.setOnClickListener { playOneRound(2) }
 
     }
 
@@ -32,4 +38,11 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun playOneRound(playersChoice: Int) {
+        val computersChoice = (0..2).random() //generating the computer's answer
+        ivComputer.setImageResource(Game.GAME_RES_DRAWABLES_IDS[computersChoice])
+        ivYou.setImageResource(Game.GAME_RES_DRAWABLES_IDS[playersChoice])
+    }
+
 }
