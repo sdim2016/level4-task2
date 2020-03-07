@@ -20,13 +20,13 @@ data class Game (
     var date: Date,
 
     @ColumnInfo(name = "computer")
-    var computer: String,
+    var computer: Int,
 
     @ColumnInfo(name = "player")
-    var player: String,
+    var player: Int,
 
     @ColumnInfo(name = "result")
-    var result: String
+    var result: Int
 
 ) : Parcelable {
     companion object {

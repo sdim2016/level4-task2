@@ -7,4 +7,7 @@
     <string name="v_s">V.S.</string>
     <string name="computer">Computer</string>
     <string name="you">You</string>
+    <string name="history">History</string>
+    <string name="title_activity_game_history">Your Game History</string>
+    <string name="clear_history">Clear history</string>
 </resources>

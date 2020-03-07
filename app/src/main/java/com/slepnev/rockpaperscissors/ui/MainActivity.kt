@@ -5,17 +5,28 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.slepnev.rockpaperscissors.R
+import com.slepnev.rockpaperscissors.database.GameRepository
 import com.slepnev.rockpaperscissors.model.Game
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var gameRepository: GameRepository
+    private val mainScope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        gameRepository = GameRepository(this)
 
         ivRock.setOnClickListener { playOneRound(0) }
         ivPaper.setOnClickListener { playOneRound(1) }
@@ -34,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_history -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -82,9 +93,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         when(result) {
-            0 -> tvResult.text = "You lose!"
+            0 -> tvResult.text = "Computer wins!"
             1 -> tvResult.text = "Draw"
             2 -> tvResult.text = "You win!"
+        }
+
+        mainScope.launch {
+            val game = Game(date = Date(), computer = computersChoice,
+                player = playersChoice, result = result)
+            withContext(Dispatchers.IO) {
+                gameRepository.addGame(game)
+            }
         }
 
     }
