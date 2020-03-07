@@ -1,5 +1,6 @@
 package com.slepnev.rockpaperscissors.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -45,7 +46,10 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_history -> true
+            R.id.action_history -> {
+                startHistoryActivity()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -106,6 +110,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun startHistoryActivity() {
+        val intent = Intent(this, GameHistoryActivity::class.java)
+        startActivity(intent)
     }
 
 }

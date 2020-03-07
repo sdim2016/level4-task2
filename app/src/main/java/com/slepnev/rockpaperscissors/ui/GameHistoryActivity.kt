@@ -32,6 +32,8 @@ class GameHistoryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game_history)
         setSupportActionBar(toolbar)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         gameRepository = GameRepository(this)
 
         initViews()
