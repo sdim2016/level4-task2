@@ -3,6 +3,7 @@ package com.slepnev.rockpaperscissors.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -50,7 +51,10 @@ class GameHistoryActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_history -> true
+            R.id.action_clear -> {
+                clearGameHistory()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -70,6 +74,16 @@ class GameHistoryActivity : AppCompatActivity() {
             this@GameHistoryActivity.games.clear()
             this@GameHistoryActivity.games.addAll(gameList)
             this@GameHistoryActivity.gameAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun clearGameHistory() {
+        mainScope.launch {
+            withContext(Dispatchers.IO) {
+                gameRepository.clearGameHistory()
+            }
+            getGameHistory()
+            Toast.makeText(this@GameHistoryActivity, "The history was cleared", Toast.LENGTH_SHORT).show()
         }
     }
 
