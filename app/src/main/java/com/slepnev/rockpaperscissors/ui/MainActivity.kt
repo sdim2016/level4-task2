@@ -40,9 +40,53 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun playOneRound(playersChoice: Int) {
+        /*
+            choices:
+            0 => ROCK
+            1 => PAPER
+            2 => SCISSORS
+
+            results (for player):
+            0 => lose
+            1 => draw
+            2 => win
+         */
+
         val computersChoice = (0..2).random() //generating the computer's answer
+        var result = -1
+
         ivComputer.setImageResource(Game.GAME_RES_DRAWABLES_IDS[computersChoice])
         ivYou.setImageResource(Game.GAME_RES_DRAWABLES_IDS[playersChoice])
+
+        if (playersChoice == computersChoice) {result = 1} else {
+            when (playersChoice) {
+                0 -> {
+                    when (computersChoice) {
+                        1 -> result = 0
+                        2 -> result = 2
+                    }
+                }
+                1 -> {
+                    when (computersChoice) {
+                        0 -> result = 2
+                        2 -> result = 0
+                    }
+                }
+                2 -> {
+                    when (computersChoice) {
+                        0 -> result = 0
+                        1 -> result = 2
+                    }
+                }
+            }
+        }
+
+        when(result) {
+            0 -> tvResult.text = "You lose!"
+            1 -> tvResult.text = "Draw"
+            2 -> tvResult.text = "You win!"
+        }
+
     }
 
 }
