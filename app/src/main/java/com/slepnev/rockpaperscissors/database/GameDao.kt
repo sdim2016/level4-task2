@@ -5,9 +5,15 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.slepnev.rockpaperscissors.model.Game
 
+/*
+* Data Access Object - defines the methods which can be used to access the
+* database, and the corresponding SQL queries.
+*/
+
 @Dao
 interface GameDao {
 
+    //suspend = can only be run in coroutine
     @Query("SELECT * FROM gameTable")
     suspend fun getAllGames():List<Game>
 

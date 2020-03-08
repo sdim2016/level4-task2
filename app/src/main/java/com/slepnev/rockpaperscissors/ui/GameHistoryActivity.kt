@@ -24,6 +24,7 @@ class GameHistoryActivity : AppCompatActivity() {
 
     private val games = arrayListOf<Game>()
     private val gameAdapter = GameAdapter(games)
+
     private lateinit var gameRepository: GameRepository
     private val mainScope = CoroutineScope(Dispatchers.Main)
 

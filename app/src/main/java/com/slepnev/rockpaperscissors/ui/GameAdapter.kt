@@ -8,7 +8,10 @@ import com.slepnev.rockpaperscissors.R
 import com.slepnev.rockpaperscissors.model.Game
 import kotlinx.android.synthetic.main.item_history.view.*
 
+//Manages ViewHolder objects
 class GameAdapter(private val games:List<Game>) : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
+
+    //Link the adapter with the layout:
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
@@ -19,9 +22,16 @@ class GameAdapter(private val games:List<Game>) : RecyclerView.Adapter<GameAdapt
         return games.size
     }
 
+    //Bind ViewHolder to the data:
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(games[position])
     }
+
+    /*
+    *
+    * ViewHolder is responsible for displaying a single item (from the list) in a view
+    *
+    * */
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(game: Game) {
