@@ -73,6 +73,7 @@ class GameHistoryActivity : AppCompatActivity() {
             }
             this@GameHistoryActivity.games.clear()
             this@GameHistoryActivity.games.addAll(gameList)
+            this@GameHistoryActivity.games.reverse()
             this@GameHistoryActivity.gameAdapter.notifyDataSetChanged()
         }
     }

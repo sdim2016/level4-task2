@@ -10,4 +10,7 @@
     <string name="history">History</string>
     <string name="title_activity_game_history">Your Game History</string>
     <string name="clear_history">Clear history</string>
+    <string name="computer_wins">Computer wins!</string>
+    <string name="draw">Draw</string>
+    <string name="you_win">You win!</string>
 </resources>

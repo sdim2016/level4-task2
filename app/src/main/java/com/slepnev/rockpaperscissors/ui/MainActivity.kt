@@ -99,9 +99,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         when(result) {
-            0 -> tvResult.text = "Computer wins!"
-            1 -> tvResult.text = "Draw"
-            2 -> tvResult.text = "You win!"
+            0 -> tvResult.text = getString(R.string.computer_wins)
+            1 -> tvResult.text = getString(R.string.draw)
+            2 -> tvResult.text = getString(R.string.you_win)
         }
 
         mainScope.launch {
